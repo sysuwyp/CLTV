@@ -69,7 +69,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="Run AITM.")
+    parser = argparse.ArgumentParser(description="Run OptDist.")
     parser.add_argument('--epoch', type=int, default=100,
                         help='Number of epochs.')
     parser.add_argument('--batch_size', type=int, default=2000,
@@ -302,13 +302,13 @@ class OptDist(object):
         self.prefix = prefix
         self.beta = beta
         # init all variables in a tensorflow graph
-        self._init_graph_AITM()
+        self._init_graph_OptDist()
 
-    def _init_graph_AITM(self):
+    def _init_graph_OptDist(self):
         '''
         Init a tensorflow Graph containing: input data, variables, model, loss, optimizer
         '''
-        print('Init raw AITM graph')
+        print('Init raw OptDist graph')
         self.graph = tf.Graph()
         with self.graph.as_default():
             # Set graph level random seed
@@ -707,9 +707,9 @@ class OptDist(object):
                     selector_loss = cur_selector_loss  # * 20
                     #print("selector:", selector_loss)
                     if self.verbose > 0:
-                        if (i + 1) % 10000 == 0:
-                            print('[%d]Train loss on step %d: %.6f, %.4f' %
-                                  (nb_sample, (i + 1), train_loss / (i + 1), 1 / ( 1)))
+                        if (i + 1) % 1 == 0:
+                            print('[%d]Train loss on step %d: %.6f' %
+                                  (nb_sample, (i + 1), train_loss / (i + 1)))
                     i += 1
                 # validation
                 tf.keras.backend.set_learning_phase(0)
